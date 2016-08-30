@@ -1,0 +1,15 @@
+#!/bin/bash
+
+opts="-std=c++1z -pedantic-errors -fexceptions"
+
+if [ -z "$1" ]; then
+    clang --version
+    echo
+    echo $opts
+    exit 0
+fi
+
+e=$(basename "$1")
+e=${e%.*}
+
+clang++ $opts -I "$(dirname $0)/../../include" -o "$outdir/$e" "$1"

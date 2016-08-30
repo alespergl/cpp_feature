@@ -1,0 +1,51 @@
+#!/bin/bash
+
+if [ -z "$1" ]; then
+    echo Build command not specified
+    exit 1
+fi
+
+scriptdir="$(cd "$(dirname "$0")"; pwd)"
+
+srcdir=$scriptdir/suite
+outdir=$scriptdir/$
+
+mkdir -p $outdir
+export outdir=$outdir
+
+pushd $srcdir > /dev/null
+trap "popd > /dev/null" EXIT
+
+rm -f *.build *.run *.txt
+
+echo "== (1/3) Collect Build Information =="
+"$scriptdir/c/$1" > build_info.txt \
+  && cat build_info.txt \
+  || exit
+echo
+
+echo "== (2/3) Build Feature Test Report =="
+"$scriptdir/c/$1" "$scriptdir/source/report.cpp" "$outdir/report" \
+  && "$outdir/report" > report.txt \
+  || exit
+echo
+
+echo "== (3/3) Run Tests =="
+for f in `find . -name *.cpp | sort -k 1,2 -t .`; do
+    tcname=${f%.*}
+    tcname=${tcname#./}
+    tcfile=$srcdir/$tcname.cpp
+    exe=$outdir/$(basename "$tcname")
+
+    echo $tcname
+
+    cd $(dirname $tcfile)
+    "$scriptdir/c/$1" "$(basename $tcname).cpp" >"$(basename $tcname).build" 2>&1
+    if [ $? -eq 0 ] && ("$exe" > "$(basename $tcname).run"); then
+        echo 1 $tcname >> $srcdir/results.txt
+    else
+        echo 0 $tcname >> $srcdir/results.txt
+    fi
+done
+echo
+

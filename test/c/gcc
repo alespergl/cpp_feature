@@ -1,0 +1,14 @@
+#!/bin/bash
+
+opts="-std=c++1z -pedantic-errors -Wno-attributes"
+
+if [ -z "$1" ]; then
+    g++ --version
+    echo $opts
+    exit 0
+fi
+
+e=$(basename "$1")
+e=${e%.*}
+
+g++ $opts -I "$(dirname $0)/../../include" -o "$outdir/$e" "$1"

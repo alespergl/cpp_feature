@@ -9,28 +9,30 @@ Check with:
     #if __has_feature(cxx_decltype)
 */
 
-#include <type_traits>
+template<class T, class U, class X = void> struct enable_if_same {};
+template<class T, class X> struct enable_if_same<T, T, X> { typedef X type; };
+
 
 const int& foo();
 int i;
 struct S { double x; };
 const S* s = new S();
 
-std::enable_if<std::is_same<
+enable_if_same<
     decltype(foo()), const int&
->::value, int>::type a;
+    , int>::type a;
 
-std::enable_if<std::is_same<
+enable_if_same<
     decltype(i), int
->::value, int>::type b;
+    , int>::type b;
 
-std::enable_if<std::is_same<
+enable_if_same<
     decltype(s->x), double
->::value, int>::type c;
+    , int>::type c;
 
-std::enable_if<std::is_same<
+enable_if_same<
     decltype((s->x)), const double&
->::value, int>::type d;
+    , int>::type d;
 
 int main()
 {

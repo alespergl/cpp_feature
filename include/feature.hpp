@@ -17,6 +17,10 @@
 #pragma once
 #include "feature-msvc.hpp"
 
+#elif defined(__DMC__)
+#pragma once
+#include "feature-dmc.hpp"
+
 #endif
 
 

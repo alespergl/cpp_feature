@@ -9,9 +9,16 @@ Check with:
     #if __has_feature(cxx_binary_literals)
 */
 
+#include <cstdio>
+
 int b = 0b101010;
 int B = 0B010101;
 
 int main()
 {
+    if(b != 42 || B != 21)
+    {
+        puts("ERROR: binary literals have incorrect values");
+        return 1;
+    }
 }

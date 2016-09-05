@@ -1,7 +1,7 @@
 @echo off
 setlocal
 
-set opts=/EHsc /GR /std:c++latest
+set opts=/EHsc /GR /W3 /std:c++latest
 
 if "%1"=="" (
     cl 2>&1 >nul

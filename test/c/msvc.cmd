@@ -1,7 +1,7 @@
 @echo off
 setlocal
 
-set opts=/EHsc /GR
+set opts=/EHsc /GR /W3
 
 if "%1"=="" (
     cl 2>&1 >nul

@@ -9,7 +9,10 @@ if [ -z "$1" ]; then
     exit 0
 fi
 
-e=$(basename "$1")
-e=${e%.*}
+out=$2
+if [ -z "$out" ]; then
+    out=$(basename "$1")
+    out=${out%.*}
+fi
 
-clang++ $opts -I "$(dirname $0)/../../include" -o "$outdir/$e" "$1"
+clang++ $opts -I "$(dirname $0)/../../include" -o "$out" "$1"

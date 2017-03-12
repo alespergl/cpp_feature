@@ -1,4 +1,4 @@
-#define __cpp_aggregate_nsdmi               0
+#define __cpp_aggregate_nsdmi               (_MSC_VER >= 1910 ? 201304 : 0)
 #if !   __cpp_aggregate_nsdmi
 #undef  __cpp_aggregate_nsdmi
 #endif
@@ -18,7 +18,7 @@
 #undef  __cpp_binary_literals
 #endif
 
-#define __cpp_constexpr                     (_MSC_VER >= 1900 ? 200704 : 0)
+#define __cpp_constexpr                     (_MSC_VER >= 1910 ? 201304 : (_MSC_VER >= 1900 ? 200704 : 0))
 #if !   __cpp_constexpr
 #undef  __cpp_constexpr
 #endif
@@ -73,7 +73,7 @@
 #undef  __cpp_initializer_lists
 #endif
 
-#define __cpp_lambdas                       (_MSC_VER >= 1600)
+#define __cpp_lambdas                       (_MSC_VER >= 1910 ? 200907 : (_MSC_VER >= 1600))
 #if !   __cpp_lambdas
 #undef  __cpp_lambdas
 #endif
@@ -135,7 +135,7 @@
 #undef  __cpp_sized_deallocation
 #endif
 
-#define __cpp_static_assert                 (_MSC_VER >= 1600 ? 200410 : 0)
+#define __cpp_static_assert                 (_MSC_VER >= 1910 ? 201411 : (_MSC_VER >= 1600 ? 200410 : 0))
 #if !   __cpp_static_assert
 #undef  __cpp_static_assert
 #endif
@@ -166,7 +166,8 @@
 #endif
 
 
-#define __has_feature__cxx_access_control_sfinae            (_MSC_VER >= 1900)
+#define __has_feature__cxx_access_control_sfinae            (_MSC_VER == 1900)
+#define __has_feature__cxx_aggregate_nsdmi                  (_MSC_VER >= 1910)
 #define __has_feature__cxx_alias_templates                  (_MSC_VER >= 1800)
 #define __has_feature__cxx_alignas                          (_MSC_VER >= 1900)
 #define __has_feature__cxx_alignof                          (_MSC_VER >= 1900)

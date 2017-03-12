@@ -11,6 +11,6 @@ if "%1"=="" (
 
 set out=%2
 if "%out%"=="" set out=%~n1.exe
-for %%f in ("%out%") do set obj=%%~dpf%~n1.obj
+for %%f in (%out%) do set obj=%%~dpf%~n1.obj
 
 cl %1 %opts% /nologo /I"%~dp0..\..\include" /Fo"%obj%" /Fe"%out%"
